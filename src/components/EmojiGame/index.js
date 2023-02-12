@@ -45,11 +45,7 @@ class EmojiGame extends Component {
     const isEmojiIdIn = clickingList.includes(id)
 
     if (isEmojiIdIn) {
-      const {score, topScore} = this.state
-      const currentScore = score
-      if (currentScore > topScore) {
-        this.setState({topScore: currentScore})
-      }
+      
       this.setState({clickingList: [], isGameprogressing: false})
     } else {
       const wonOrLose = emojisList.length === clickingList.length + 1
@@ -59,11 +55,17 @@ class EmojiGame extends Component {
         score: prevState.score + 1,
         isShuffling: true,
         isWon: wonOrLose,
+        isGameprogressing:!wonOrLose
       }))
     }
   }
 
   onPlayAgain = () => {
+    const {score, topScore} = this.state
+      const currentScore = score
+      if (currentScore > topScore) {
+        this.setState({topScore: currentScore})
+      }
     this.setState({score: 0, clickingList: [], isGameprogressing: true})
   }
 
